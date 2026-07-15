@@ -4,7 +4,7 @@ export default function HomePage() {
 
     return (
         <div 
-        className="min-h-screen flex items-center justify-center text-white" 
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
         style={{background:"linear-gradient(to bottom, #5b5c5e, #9a280b, #5b5c5e)"}}>
         
         <div className = "container mx-auto px-16 relative z-10 space-y-8">
