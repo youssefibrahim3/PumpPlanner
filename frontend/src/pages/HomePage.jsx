@@ -18,7 +18,7 @@ export default function HomePage() {
                 Begin tracking your workouts today and double your progress.
             </p>
 
-            
+            <div className="container mx-auto align-middle"></div>
             <button onClick={() => navigate('/login')} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold">
                 Get Started
             </button>
