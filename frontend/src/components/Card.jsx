@@ -1,12 +1,10 @@
-export default function Card()
+export default function Card(props)
 {
     return (
-        <header className="bg-white-400">
-            <nav>
-                <a>asd</a>
-            </nav>
+        <div className="container rounded-lg drop-shadow-red-900">
+            
 
-        </header>
+        </div>
     )
 
 }
