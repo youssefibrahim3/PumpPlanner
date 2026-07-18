@@ -4,10 +4,12 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/Loginpage';
 import Dashboard from './pages/Dashboard';
 
+
 function App() {
   const [count, setCount] = useState(0)
 
   return (
+    
     <BrowserRouter>
       <Routes>
           <Route path='/' element={<HomePage/>}/>
