@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
+import Card from "../components/Card";
 
 export default function HomePage() {
     const navigate = useNavigate()
@@ -25,9 +26,13 @@ export default function HomePage() {
             <button onClick={() => navigate('/login')} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold">
                 Get Started
             </button>
-        </div>
-        <p></p>
 
+            <div className="grid grid-cols-3">
+                <Card/>
+                <Card/>
+                <Card/>
+            </div>
+        </div>
         </div>
     )
 }
