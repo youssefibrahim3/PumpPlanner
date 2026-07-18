@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import Header from "../components/Header";
+
 export default function HomePage() {
     const navigate = useNavigate()
 
@@ -8,7 +10,8 @@ export default function HomePage() {
         <div 
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         style={{background:"linear-gradient(to bottom, #d16d54, #9a280b, #d16d54)"}}>
-        
+        <Header/>
+
         <div className = "container mx-auto px-16 relative z-10 space-y-8">
             <h1 className="text-white font-bold text-6xl mb-4">
                 Pump Planner
