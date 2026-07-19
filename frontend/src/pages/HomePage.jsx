@@ -23,7 +23,7 @@ export default function HomePage() {
             </p>
 
             <div className="container mx-auto align-middle"></div>
-            <button onClick={() => navigate('/login')} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold">
+            <button onClick={() => navigate('/login')} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold hover:cursor-pointer">
                 Get Started
             </button>
 
