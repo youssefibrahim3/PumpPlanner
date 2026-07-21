@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
     const navigate = useNavigate()
-    const { username, setUsername } = useState("")
-    const { password, setPassword } = useState("")
-    const { isLogin, setIsLogin } = useState(false)
+    const [ username, setUsername ] = useState("")
+    const [ password, setPassword ] = useState("")
 
 
     async function handleLogin(e)
@@ -23,10 +22,10 @@ export default function LoginForm() {
         <div 
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         style={{background:"linear-gradient(to bottom, #d16d54, #9a280b, #d16d54)"}}>
-        
+        <p>inte</p>
         <div className="justify-center text-center gap-3 items-center"></div>
         
-            <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+            <h1>Login</h1>
 
             <form id="login_form">
                 <label htmlFor="username">Username</label>
@@ -35,7 +34,7 @@ export default function LoginForm() {
                 <label htmlFor="password">Password</label>
                 <input type="text" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
 
-                <button type="submit" onClick={handleLogin} disabled={!(username.length() > 0 && password.length > 0)}>Login</button>
+                <button className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold hover:cursor-pointer" type="submit" onClick={handleLogin} disabled={!(username.length > 0 && password.length > 0)}>Login</button>
             </form>
         </div>
 
