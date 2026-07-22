@@ -36,7 +36,7 @@ export default function LoginForm() {
 
                 <button className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold hover:cursor-pointer" type="submit" onClick={handleLogin} disabled={!(username.length > 0 && password.length > 0)}>Login</button>
             </form>
-        </div>
+        </div >
 
     )
 }

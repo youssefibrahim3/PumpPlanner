@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
 import Card from "../components/Card";
+import Footer from "../components/Footer";
 
 export default function HomePage() {
     const navigate = useNavigate()
@@ -48,6 +49,7 @@ export default function HomePage() {
                 </div>
             </div>
         </div>
+        <Footer/>
         </div>
     )
 }
