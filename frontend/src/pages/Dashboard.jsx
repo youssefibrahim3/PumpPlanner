@@ -8,6 +8,13 @@ export default function Dashboard()
 {
     const navigate = useNavigate();
 
+    useEffect(() => {
+        setSessions([
+            { id: 1, name: "Push Day", date: "2026-07-28", exercises: [1, 2] },
+            { id: 2, name: "Leg Day", date: "2026-07-30", exercises: [1] },
+        ]);
+    }, []);
+
     async function handleCreateSession() {
         navigate('/dashboard/session/new') // note to self: here the ID is 'new', ID is a string, use 'useparams()'
     }
