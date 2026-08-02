@@ -22,7 +22,7 @@ export default function Session()
             { id : 1, exerciseName: "Squat", sets: [{reps: 5, weight: 135}] }, //Exercise form: id (int), name (string), sets (array of objects)
             { id : 2, exerciseName: "Bench", sets: [{reps: 12, weight: 225}]}
         ])
-    })
+    }, [])
 
     return (
         <div className="min-h-screen" style={{background:"linear-gradient(to bottom, #d16d54, #9a280b, #d16d54)"}}>
