@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ExerciseEntry from "../components/ExerciseEntry";
+import AddExerciseForm from "../components/AddExerciseForm";
 
 export default function Session()
 {
@@ -12,7 +13,7 @@ export default function Session()
     const [session, setSession] = useState(null) // data for this session
     const [exercises, setExercises] = useState([]) // all exercises in the session currently
     const [addForm, showAddForm] = useState(false)
-
+    
     useEffect(() => {
         setSession({
             id: 1,
@@ -41,6 +42,8 @@ export default function Session()
     {
         setExercises(exercises.filter(exercise => exercise.id !== exerciseId))
     }
+
+
     return (
         <div className="min-h-screen" style={{background:"linear-gradient(to bottom, #d16d54, #9a280b, #d16d54)"}}>
             <Header/>
@@ -55,9 +58,13 @@ export default function Session()
                 </button>
                 {addForm && 
                 <div>
-                    <form onSubmit={addExercise}>
-                        <input type="text"></input>
-                    </form>
+                    <AddExerciseForm
+                    onSubmit={(e) => {
+                        addExercise(e)
+                        showAddForm(false)
+                    }}
+                    onCancel={() => showAddForm(false)}
+                    />
                 </div>
                 }
             </div>
