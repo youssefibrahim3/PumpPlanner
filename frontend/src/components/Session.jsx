@@ -20,9 +20,9 @@ export default function Session()
             date: "2026-07-30"
         })
         setExercises([
-            //Exercise structure: id (num), name (string), sets {reps, weight , amt of sets} (all num)
-            { id : 1, exerciseName: "Squat", sets: [{reps: 5, weight: 135, amt: 3}] }, 
-            { id : 2, exerciseName: "Bench", sets: [{reps: 12, weight: 225, amt: 3}]}
+            //Exercise structure: id (num), name (string), sets {reps, weight} (all num)
+            { id : 1, exerciseName: "Squat", sets: [{reps: 5, weight: 135},{reps: 5, weight: 135},{reps: 5, weight: 135}] }, 
+            { id : 2, exerciseName: "Bench", sets: [{reps: 12, weight: 225},{reps: 12, weight: 225},{reps: 12, weight: 225}] }
         ])
     }, [id])
 
