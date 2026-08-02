@@ -1,9 +1,8 @@
-export default function Card(props)
+export default function Card({ content, onClick })
 {
     return (
-        <div className="block rounded-lg drop-shadow-red-900 bg-gray-300">
-            <p>Placeholder</p>
-
+        <div onClick={onClick} className="block rounded-lg drop-shadow-red-900 bg-gray-300">
+            {content}
         </div>
     )
 
