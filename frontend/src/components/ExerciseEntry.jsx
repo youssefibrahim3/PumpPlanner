@@ -11,6 +11,9 @@ export default function ExerciseEntry({exerciseData, onDelete})
                 <h2 className="py-1" key={i}>Set {i+1} : {set.reps} reps @ {set.weight}lbs</h2>
                 </div>
             )}
+            <button onClick={() => onDelete(exerciseData.id)} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
+                - Delete Exercise
+             </button> 
         </div>
     );
 
