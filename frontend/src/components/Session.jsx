@@ -10,7 +10,8 @@ export default function Session()
 
     const [session, setSession] = useState(null) // data for this session
     const [exercises, setExercises] = useState([]) // all exercises in the session currently
-    
+    const [addForm, showAddForm] = useState(false)
+
     useEffect(() => {
         setSession({
             id: 1,
@@ -25,6 +26,15 @@ export default function Session()
             <Header/>
             <div className="justify-center mx-auto">
 
+
+                <button onClick={showAddForm(true)} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold">
+                    + Add Exercise
+                </button>
+                {addForm && 
+                <div>
+                    <p>content goes here</p>
+                </div>
+                }
             </div>
             <Footer/>
         </div>
