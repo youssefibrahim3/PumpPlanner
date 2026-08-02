@@ -5,7 +5,7 @@ import Footer from "./Footer";
 
 export default function Session()
 {
-    const sessionId = useParams()
+    const { id } = useParams()
     const navigate = useNavigate()
 
     const [session, setSession] = useState(null) // data for this session
