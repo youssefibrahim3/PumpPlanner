@@ -18,7 +18,10 @@ export default function Session()
             name: "Session1",
             date: "2026-07-30"
         })
-        setExercises("Squat", "Bench", "Deadlift")
+        setExercises([
+            { id : 1, exerciseName: "Squat", sets: [{reps: 5, weight: 135}] }, //Exercise form: id (int), name (string), sets (array of objects)
+            { id : 2, exerciseName: "Bench", sets: [{reps: 12, weight: 225}]}
+        ])
     })
 
     return (
