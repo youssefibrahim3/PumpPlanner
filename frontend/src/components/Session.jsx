@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function Session()
 {
@@ -30,7 +30,7 @@ export default function Session()
             <div className="justify-center mx-auto">
 
 
-                <button onClick={showAddForm(true)} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold">
+                <button onClick={() => showAddForm(true)} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold">
                     + Add Exercise
                 </button>
                 {addForm && 
