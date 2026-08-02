@@ -11,7 +11,7 @@ export default function LoginForm() {
     {
         e.preventDefault();
         
-        // Put API call here using 'fetch' and then chaining
+        // Put API call here using 'fetch' and then chaining. DO NOT use localstorage for login data once this works
         localStorage.setItem("logged_in", true)
         localStorage.setItem("username", username)
         localStorage.setItem("password", password)
@@ -32,7 +32,7 @@ export default function LoginForm() {
                 <input type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
                 
                 <label htmlFor="password">Password</label>
-                <input type="text" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
 
                 <button className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold hover:cursor-pointer" type="submit" onClick={handleLogin} disabled={!(username.length > 0 && password.length > 0)}>Login</button>
             </form>
