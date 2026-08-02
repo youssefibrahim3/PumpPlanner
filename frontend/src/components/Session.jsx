@@ -39,7 +39,7 @@ export default function Session()
 
     function deleteExercise(exerciseId)
     {
-
+        setExercises(exercises.filter(exercise => exercise.id !== exerciseId))
     }
     return (
         <div className="min-h-screen" style={{background:"linear-gradient(to bottom, #d16d54, #9a280b, #d16d54)"}}>
