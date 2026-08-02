@@ -8,7 +8,7 @@ export default function ExerciseEntry({exerciseData, onDelete})
             <h2>{exerciseData.id} : {exerciseData.exerciseName} - {exerciseData.sets.length} set{exerciseData.sets.length > 1 && 's'}</h2>
             {exerciseData.sets.map((set, i) => 
                 <div className="rounded-lg bg-red-300 my-3 py-3">
-                <h2 className="py-1" key={i}>Set {i+1} : {set.reps} reps @ {set.weight}lbs</h2>
+                <h2 className="py-1" key={i}>Set {i+1} : {set.reps} reps @ {set.weight}{exerciseData.unit}</h2>
                 </div>
             )}
             <button onClick={() => onDelete(exerciseData.id)} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
