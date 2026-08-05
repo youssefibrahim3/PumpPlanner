@@ -7,6 +7,7 @@ from routes import auth, sessions
 import models
 import schemas
 
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
