@@ -34,6 +34,7 @@ export default function LoginForm() {
                     name="username" 
                     value={username}
                     placeholder="Username"
+                    required
                     onChange={(e) => setUsername(e.target.value)}
                     className="w-full bg-white/10 border border-black/20 rounded-xl px-4 py-4 transition"/>
                 </div>
@@ -46,6 +47,7 @@ export default function LoginForm() {
                     name="password" 
                     value={password}
                     placeholder="Password"
+                    required
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full bg-white/10 border border-black/20 rounded-xl px-4 py-4 transition"/>
                 </div>
