@@ -17,12 +17,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
-def hash_password(password : str) -> str:
-    pass
-
-def verify_password(password : str, hashed_password : str) -> bool:
-    pass
-
 def create_access_token(data : dict):
     to_encode = data.copy()
     expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -30,4 +24,17 @@ def create_access_token(data : dict):
     return jwt.encode(claims=to_encode, key=SECRET_KEY, algorithm=ALGORITHM)
 
 def get_current_user(token : str = Depends(oauth2_scheme), db : DBSession = Depends(get_db)):
-    pass
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id = payload.get("user_id")
+        if not user_id:
+            raise HTTPException(status_code=401, detail="Invalid token")
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid/expired token")
+
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+    
+    return None
