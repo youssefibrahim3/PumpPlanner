@@ -22,7 +22,7 @@ def get_sessions(db : DBSession = Depends(get_db), current_user : models.User = 
 
 @router.get("/sessions/{id}", response_model=schemas.SessionRead)
 def get_session_by_id(id : int, db : DBSession = Depends(get_db), current_user : models.User = Depends(get_current_user)):
-    read_session : models.Session = db.query(models.Session).filter(models.Session.user_id == current_user.id).get(id)
+    read_session : models.Session = db.query(models.Session).filter(models.Session.user_id == current_user.id, models.Session.id == id).first()
     if read_session:
         return read_session
     else:
@@ -30,7 +30,7 @@ def get_session_by_id(id : int, db : DBSession = Depends(get_db), current_user :
 
 @router.delete("/sessions/{id}", status_code=204)
 def delete_session_by_id(id : int, db : DBSession = Depends(get_db), current_user : models.User = Depends(get_current_user)):
-    read_session : models.Session = db.query(models.Session).filter(models.Session.user_id == current_user.id).get(id)
+    read_session : models.Session = db.query(models.Session).filter(models.Session.user_id == current_user.id, models.Session.id == id).first()
     if read_session:
         db.delete(read_session)
         db.commit()
