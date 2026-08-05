@@ -20,11 +20,11 @@ export default function LoginForm() {
 
     return (
         <div 
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
         style={{background:"linear-gradient(to bottom, #d16d54, #9a280b, #d16d54)"}}>
         <div className="justify-center text-center gap-3 items-center"></div>
         
-            <h1 className="text-white/60 text-lg backdrop-blur-md px-8 py-10">Login</h1>
+            <h1 className="text-white text-4xl backdrop-blur-md px-8 py-10">Login</h1>
 
             <form id="login_form" className="space-y-5 my-5">
                 <div>
@@ -52,7 +52,7 @@ export default function LoginForm() {
                 </div>
 
                 <button 
-                className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer" 
+                className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"  
                 type="submit" 
                 onClick={handleLogin} 
                 disabled={!(username.length > 0 && password.length > 0)}>
