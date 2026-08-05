@@ -4,7 +4,7 @@ from database import get_db
 import models
 import schemas
 
-router = APIRouter() # basically just allows writing routes in diff file
+router = APIRouter() 
 
 @router.post("/sessions/{session_id}/exercises", response_model=schemas.ExerciseRead)
 def create_exercise(session_id : int, exercise : schemas.ExerciseCreate, db : DBSession = Depends(get_db)):
