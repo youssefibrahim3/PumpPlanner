@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, timezone, timedelta, date
 from dotenv import load_dotenv
 from jose import jwt, JWTError
 import bcrypt
@@ -23,7 +24,10 @@ def verify_password(password : str, hashed_password : str) -> bool:
     pass
 
 def create_access_token(data : dict):
-    pass
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode.update({"exp": expire})
+    return jwt.encode(claims=to_encode, key=SECRET_KEY, algorithm=ALGORITHM)
 
 def get_current_user(token : str = Depends(oauth2_scheme), db : DBSession = Depends(get_db)):
     pass
