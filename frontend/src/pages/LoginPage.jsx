@@ -11,7 +11,7 @@ export default function LoginPage() {
 
     return (
         <div 
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
         style={{background:"linear-gradient(to bottom, #d16d54, #9a280b, #d16d54)"}}>
             
             
@@ -22,10 +22,10 @@ export default function LoginPage() {
             )}
 
             <button
-            className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer" 
+            className="bg-red-300 hover:bg-red-700 px-6 py-3 my-5 rounded-lg font-bold cursor-pointer" 
             onClick={() => setLoggingIn(!loggingIn)}
             >
-            Swap
+            {loggingIn ? 'Not a user? Sign Up' : 'Already a user? Log In'}
             </button>
         </div>
 
