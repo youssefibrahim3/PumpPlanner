@@ -51,7 +51,7 @@ export default function AddExerciseForm({onSubmit, onCancel})
                 </select>
 
                 {sets.map((set, i) => (
-                    <div className="rounded-lg bg-red-300 my-3 py-3">
+                    <div className="rounded-lg bg-red-300 my-3 py-3" key={i}>
                         
                         <h1>Set {i + 1}</h1>
                         <input 
