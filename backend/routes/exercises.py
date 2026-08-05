@@ -7,11 +7,16 @@ from security import get_current_user
 
 router = APIRouter() 
 
-@router.post("/sessions/{session_id}/exercises", response_model=schemas.ExerciseRead)
-def create_exercise(session_id : int, exercise : schemas.ExerciseCreate, db : DBSession = Depends(get_db), current_user : models.User = Depends(get_current_user)):
+## Helper function for checking if user owns a given session
+def check_owned_session(session_id : int, current_user : models.User, db : DBSession):
     session = db.query(models.Session).filter(models.Session.id == session_id, models.Session.user_id == current_user.id).first()
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
+    return session
+
+@router.post("/sessions/{session_id}/exercises", response_model=schemas.ExerciseRead)
+def create_exercise(session_id : int, exercise : schemas.ExerciseCreate, db : DBSession = Depends(get_db), current_user : models.User = Depends(get_current_user)):
+    check_owned_session(session_id, current_user, db)
 
     new_exercise : models.Exercise = models.Exercise(exerciseName = exercise.exerciseName, unit = exercise.unit, session_id = session_id)
     db.add(new_exercise)
@@ -28,18 +33,14 @@ def create_exercise(session_id : int, exercise : schemas.ExerciseCreate, db : DB
 
 @router.get("/sessions/{session_id}/exercises", response_model=list[schemas.ExerciseRead])
 def get_exercises(session_id : int, db : DBSession = Depends(get_db), current_user : models.User = Depends(get_current_user)):
-    session = db.query(models.Session).filter(models.Session.id == session_id, models.Session.user_id == current_user.id).first()
-    if not session:
-        raise HTTPException(status_code=404, detail="Session not found")
+    check_owned_session(session_id, current_user, db)
     
     read_exercises : list[models.Exercise] = db.query(models.Exercise).filter(models.Exercise.session_id == session_id).all()
     return read_exercises
 
 @router.get("/sessions/{session_id}/exercises/{id}", response_model=schemas.ExerciseRead)
 def get_exercise_by_id(session_id : int, id : int, db : DBSession = Depends(get_db), current_user : models.User = Depends(get_current_user)):
-    session = db.query(models.Session).filter(models.Session.id == session_id, models.Session.user_id == current_user.id).first()
-    if not session:
-        raise HTTPException(status_code=404, detail="Session not found")
+    check_owned_session(session_id, current_user, db)
 
     read_exercise : models.Exercise = db.query(models.Exercise).filter(models.Exercise.session_id == session_id, models.Exercise.id == id).first()
     if read_exercise:
@@ -49,9 +50,7 @@ def get_exercise_by_id(session_id : int, id : int, db : DBSession = Depends(get_
     
 @router.delete("/sessions/{session_id}/exercises/{id}", status_code=204)
 def delete_exercise_by_id(session_id : int, id : int, db : DBSession = Depends(get_db), current_user : models.User = Depends(get_current_user)):
-    session = db.query(models.Session).filter(models.Session.id == session_id, models.Session.user_id == current_user.id).first()
-    if not session:
-        raise HTTPException(status_code=404, detail="Session not found")
+    check_owned_session(session_id, current_user, db)
 
     read_exercise : models.Exercise = db.query(models.Exercise).filter(models.Exercise.session_id == session_id, models.Exercise.id == id).first()
     if read_exercise:
