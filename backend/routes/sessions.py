@@ -26,3 +26,12 @@ def get_session_by_id(id : int, db : DBSession = Depends(get_db)):
         return read_session
     else:
         raise HTTPException(status_code=404, detail=f"Session {id} not found")
+
+@router.delete("/sessions/{id}", status_code=204)
+def delete_session_by_id(id : int, db : DBSession = Depends(get_db)):
+    read_session : models.Session = db.query(models.Session).get(id)
+    if read_session:
+        db.delete(read_session)
+        db.commit()
+    else:
+        raise HTTPException(status_code=404, detail=f"Session {id} not found")
