@@ -1,13 +1,11 @@
-from flask import Flask, jsonify, request
-from flask_cors import CORS
+from fastapi import FastAPI
 import bcrypt
 import json
 
-app = Flask(__name__)
-CORS(app)
+app = FastAPI()
 
-users = []
-
-@app.route("/signup",methods=["POST"])
-def createUser():
-    pass
+# to run server: uvicorn main:app --reload
+#path definition
+@app.get('/')
+def root():
+    return {"Hello" : "World"}
