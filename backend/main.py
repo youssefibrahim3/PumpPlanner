@@ -1,32 +1,34 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from sqlalchemy import text
+from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
-from routes import auth, sessions
+from routes import auth, sessions, exercises
 
 import models
 import schemas
-
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-app.include_router(sessions.router)
+origins = [
+    "http://localhost:5173",
+    "https://placeholder.com",
+]
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
+app.include_router(sessions.router)
+app.include_router(exercises.router)
+app.include_router(auth.router)
 
 # to run server: uvicorn main:app --reload
-# pass in props using query parameter
-#response_model
-# @app.get/post
-#path definition
 
 @app.get("/")
 def root():
     return {"Hello" : "World"}
-
-@app.get("/test-db")
-def test_db():
-    with engine.connect() as connection:
-        result = connection.execute(text("SELECT 1"))
-        return {"db_connected" : True, "result" : result.scalar()}
