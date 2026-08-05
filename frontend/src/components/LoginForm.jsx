@@ -28,7 +28,7 @@ export default function LoginForm() {
 
             <form id="login_form" className="space-y-5 my-5">
                 <div>
-                    <label htmlFor="username">Username</label>
+                    <label htmlFor="username" className="text-white">Username</label>
                     <input 
                     type="text" 
                     id="username" 
@@ -40,7 +40,7 @@ export default function LoginForm() {
                 </div>
                 
                 <div>
-                    <label htmlFor="username">Username</label>
+                    <label htmlFor="password" className="text-white">Password</label>
                     <input 
                     type="password" 
                     id="password" 
