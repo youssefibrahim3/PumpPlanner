@@ -7,9 +7,6 @@ from routes import auth, sessions
 import models
 import schemas
 
-import bcrypt
-import json
-
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
