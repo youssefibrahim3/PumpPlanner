@@ -26,19 +26,19 @@ def get_exercises(session_id : int, db : DBSession = Depends(get_db)):
     read_exercises : list[models.Exercise] = db.query(models.Exercise).filter(models.Exercise.session_id == session_id).all()
     return read_exercises
 
-@router.get("/sessions/{id}", response_model=schemas.SessionRead)
-def get_session_by_id(id : int, db : DBSession = Depends(get_db)):
-    read_session : models.Session = db.query(models.Session).get(id)
-    if read_session:
-        return read_session
+@router.get("/sessions/{session_id}/exercises/{id}", response_model=schemas.ExerciseRead)
+def get_exercise_by_id(session_id : int, id : int, db : DBSession = Depends(get_db)):
+    read_exercise : models.Exercise = db.query(models.Exercise).filter(models.Exercise.session_id == session_id, models.Exercise.id == id).first()
+    if read_exercise:
+        return read_exercise
     else:
-        raise HTTPException(status_code=404, detail=f"Session {id} not found")
-
-@router.delete("/sessions/{id}", status_code=204)
-def delete_session_by_id(id : int, db : DBSession = Depends(get_db)):
-    read_session : models.Session = db.query(models.Session).get(id)
-    if read_session:
-        db.delete(read_session)
+        raise HTTPException(status_code=404, detail=f"Exercise {id} in session {session_id} not found")
+    
+@router.delete("/sessions/{session_id}/exercises/{id}", status_code=204)
+def delete_exercise_by_id(session_id : int, id : int, db : DBSession = Depends(get_db)):
+    read_exercise : models.Exercise = db.query(models.Exercise).filter(models.Exercise.session_id == session_id, models.Exercise.id == id).first()
+    if read_exercise:
+        db.delete(read_exercise)
         db.commit()
     else:
-        raise HTTPException(status_code=404, detail=f"Session {id} not found")
+        raise HTTPException(status_code=404, detail=f"Exercise {id} in session {session_id} not found")
