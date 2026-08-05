@@ -2,7 +2,10 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from sqlalchemy import text
 from database import engine, Base
+from routes import auth, sessions
+
 import models
+import schemas
 
 import bcrypt
 import json
@@ -11,6 +14,7 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+app.include_router(sessions.router)
 
 
 # to run server: uvicorn main:app --reload
