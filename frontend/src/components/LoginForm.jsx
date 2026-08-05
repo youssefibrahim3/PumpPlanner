@@ -22,19 +22,42 @@ export default function LoginForm() {
         <div 
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         style={{background:"linear-gradient(to bottom, #d16d54, #9a280b, #d16d54)"}}>
-        <p>inte</p>
         <div className="justify-center text-center gap-3 items-center"></div>
         
-            <h1>Login</h1>
+            <h1 className="text-white/60 text-lg backdrop-blur-md px-8 py-10">Login</h1>
 
-            <form id="login_form">
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+            <form id="login_form" className="space-y-5 my-5">
+                <div>
+                    <label htmlFor="username">Username</label>
+                    <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    value={username}
+                    placeholder="Username"
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="w-full bg-white/10 border border-black/20 rounded-xl px-4 py-4 transition"/>
+                </div>
                 
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                <div>
+                    <label htmlFor="username">Username</label>
+                    <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    value={password}
+                    placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full bg-white/10 border border-black/20 rounded-xl px-4 py-4 transition"/>
+                </div>
 
-                <button className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold hover:cursor-pointer" type="submit" onClick={handleLogin} disabled={!(username.length > 0 && password.length > 0)}>Login</button>
+                <button 
+                className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer" 
+                type="submit" 
+                onClick={handleLogin} 
+                disabled={!(username.length > 0 && password.length > 0)}>
+                Login
+                </button>
             </form>
         </div >
 

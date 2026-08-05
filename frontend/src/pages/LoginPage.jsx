@@ -20,7 +20,13 @@ export default function LoginPage() {
             ) : (
                 <SignUpForm/>
             )}
-        
+
+            <button
+            className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer" 
+            onClick={() => setLoggingIn(!loggingIn)}
+            >
+            Swap
+            </button>
         </div>
 
     )
