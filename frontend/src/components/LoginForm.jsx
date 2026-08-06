@@ -5,7 +5,7 @@ export default function LoginForm() {
     const navigate = useNavigate()
     const [ username, setUsername ] = useState("")
     const [ password, setPassword ] = useState("")
-
+    const [ error, setError ] = useState("")
 
     async function handleLogin(e)
     {
@@ -51,6 +51,8 @@ export default function LoginForm() {
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full bg-white/10 border border-black/20 rounded-xl px-4 py-4 transition"/>
                 </div>
+                
+                {error && <p className="text-white text-sm font-bold">{error}</p>}
 
                 <button 
                 className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"  
