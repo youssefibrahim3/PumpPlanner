@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE } from "../api";
 
 export default function LoginForm() {
     const navigate = useNavigate()
@@ -12,10 +13,27 @@ export default function LoginForm() {
         e.preventDefault();
         
         // Put API call here using 'fetch' and then chaining. DO NOT use localstorage for login data once this works
-        localStorage.setItem("logged_in", true)
-        localStorage.setItem("username", username)
-        localStorage.setItem("password", password)
-        navigate('/dashboard')
+        //localStorage.setItem("logged_in", true)
+        //localStorage.setItem("username", username)
+        //localStorage.setItem("password", password)
+        //navigate('/dashboard')
+
+        fetch(`${API_BASE}/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({username, password})
+        })
+        .then(response => response.json())
+        .then(data => {
+            localStorage.setItem("token", data.access_token)
+            navigate('/dashboard')
+        })
+        .catch(error => {
+            setError("Could not reach the server")
+            console.error(error)
+        })
     }
 
     return (
