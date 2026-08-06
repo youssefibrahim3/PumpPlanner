@@ -25,7 +25,13 @@ export default function LoginForm() {
             },
             body: JSON.stringify({username, password})
         })
-        .then(response => response.json())
+        .then(response => {
+            const data = await response.json()
+            if (!response.ok) {
+                throw new Error(data.detail || "Login failed")
+            }
+            return data
+        })
         .then(data => {
             localStorage.setItem("token", data.access_token)
             navigate('/dashboard')
