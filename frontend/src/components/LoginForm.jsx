@@ -12,12 +12,6 @@ export default function LoginForm() {
     {
         e.preventDefault();
         
-        // Put API call here using 'fetch' and then chaining. DO NOT use localstorage for login data once this works
-        //localStorage.setItem("logged_in", true)
-        //localStorage.setItem("username", username)
-        //localStorage.setItem("password", password)
-        //navigate('/dashboard')
-
         fetch(`${API_BASE}/auth/login`, {
             method: "POST",
             headers: {
@@ -25,7 +19,7 @@ export default function LoginForm() {
             },
             body: JSON.stringify({username, password})
         })
-        .then(response => {
+        .then(async (response) => {
             const data = await response.json()
             if (!response.ok) {
                 throw new Error(data.detail || "Login failed")
@@ -37,7 +31,7 @@ export default function LoginForm() {
             navigate('/dashboard')
         })
         .catch(error => {
-            setError("Could not reach the server")
+            setError(error.message)
             console.error(error)
         })
     }
