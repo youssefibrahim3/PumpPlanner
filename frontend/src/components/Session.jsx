@@ -96,7 +96,7 @@ export default function Session()
             }
             if (response.status === 404) {
                 const data = response.json()
-                throw new Error(data.detail || "Exercise not found")
+                throw new Error(data.detail || `Exercise ${exerciseId} not found`)
             }
             if (!response.ok) {
                 throw new Error("Failed to delete exercise")
