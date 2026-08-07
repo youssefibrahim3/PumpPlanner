@@ -43,6 +43,7 @@ export default function Dashboard()
     }
 
     async function handleCreateSession() {
+        setFetching(true)
         fetch(`${API_BASE}/sessions`, {
             method: "POST",
             headers: {
@@ -71,10 +72,14 @@ export default function Dashboard()
         .catch(error => {
             console.error(error)
         })
+        .finally(() => {
+            setFetching(false)
+        })
     }
 
     async function handleDeleteSession(e, sessionId) {
         e.stopPropagation()
+        setFetching(true)
         fetch(`${API_BASE}/sessions/${sessionId}`, {
             method: "DELETE",
             headers: {
@@ -101,6 +106,9 @@ export default function Dashboard()
         })
         .catch(error => {
             console.error(error)
+        })
+        .finally(() => {
+            setFetching(false)
         })
     }
 
@@ -156,7 +164,7 @@ export default function Dashboard()
                     ))}
                 </div>
                 )}
-                
+
             </div>
             <Footer/>
         </div>
