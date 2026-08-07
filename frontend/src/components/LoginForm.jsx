@@ -41,7 +41,7 @@ export default function LoginForm() {
 
         <div className="justify-center text-center gap-3 items-center"></div>
         
-            <h1 className="text-white text-4xl py-10">Login</h1>
+            <h1 className="text-white text-4xl py-5">Login</h1>
 
             <form id="login_form" className="space-y-5 my-5">
                 <div>
