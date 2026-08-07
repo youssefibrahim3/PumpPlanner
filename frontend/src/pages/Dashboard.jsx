@@ -10,6 +10,7 @@ export default function Dashboard()
     const navigate = useNavigate();
     const [sessions, setSessions] = useState([]); //Array of session objects
     const [sessionName, setSessionName] = useState("")
+    const [fetching, setFetching] = useState(true)
 
     const token = localStorage.getItem("token")
 
@@ -34,6 +35,7 @@ export default function Dashboard()
         })
         .then(data => {
             setSessions(data)
+            setFetching(false)
         })
         .catch(error => {
             console.error(error)
@@ -97,12 +99,14 @@ export default function Dashboard()
                     </button>
                 </div>
 
+                {fetching && <h1 className="text-white font-bold text-4xl">Fetching...</h1>}
+                
                 <div className="grid grid-cols-3 gap-5">
                     {sessions.map(session => (
                         <Card key={session.id} onClick={() => navigate(`/dashboard/session/${session.id}`)}>
                             <h2 className="text-xl font-bold">{session.name}</h2>
-                            <p className="text-sm text-gray-600">{session.date}</p>
-                            <p className="text-sm text-gray-600">{session.exercises.length} exercises</p>
+                            <p className="text-md text-gray-600">{session.date}</p>
+                            <p className="text-md text-gray-600">{session.exercises.length} exercises</p>
                         </Card>
                     ))}
                 </div>
