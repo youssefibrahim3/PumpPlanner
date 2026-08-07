@@ -45,11 +45,51 @@ export default function Session()
         })
     }
 
-    async function handleAddExercise() {
-
+    async function handleAddExercise(exerciseData) {
+        fetch(`${API_BASE}/sessions/${id}/exercises`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(exerciseData)
+        })
+        .then(async (response) => {
+            const data = await response.json()
+            if (response.status === 401) {
+                localStorage.removeItem("token")
+                navigate('/login')
+                return
+            }
+            if (!response.ok) {
+                throw new Error("Failed to create exercise")
+            }
+            return data
+        })
+        .then(data => {
+            if (!data) return
+            setExercises(
+                [
+                    ...exercises,
+                    data
+                ]
+            )
+        })
+        .catch(error => {
+            console.error(error)
+        })
     }
 
-    async function handleDeleteExercise() {
+    async function handleDeleteExercise(exerciseId) {
+        fetch(`${API_BASE}/sessions/${id}/exercises/${exerciseId}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+        })
+        .then(async (response) => {
+            
+        })
 
     }
 
@@ -65,22 +105,6 @@ export default function Session()
         }
     }, [id])
 
-    function addExercise(data)
-    {
-        setExercises(
-            [
-                ...exercises,
-                data
-            ]
-        );
-
-    }
-
-    function deleteExercise(exerciseId)
-    {
-        setExercises(exercises.filter(exercise => exercise.id !== exerciseId))
-    }
-
 
     return (
         <div className="min-h-screen" style={{background:"linear-gradient(to bottom, #d16d54, #9a280b, #d16d54)"}}>
@@ -88,7 +112,7 @@ export default function Session()
             <div className="justify-center mx-auto py-24">
 
                 {exercises.map(exercise => (
-                    <ExerciseEntry key={exercise.id} exerciseData={exercise} onDelete={deleteExercise} />
+                    <ExerciseEntry key={exercise.id} exerciseData={exercise} onDelete={handleDeleteExercise} />
                 ))}
 
                 <button onClick={() => showAddForm(true)} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
@@ -98,7 +122,7 @@ export default function Session()
                 <div>
                     <AddExerciseForm
                     onSubmit={(e) => {
-                        addExercise(e)
+                        handleAddExercise(e)
                         showAddForm(false)
                     }}
                     onCancel={() => showAddForm(false)}
