@@ -73,7 +73,7 @@ export default function Dashboard()
         })
     }
 
-    async function handleDeleteSession(sessionId) {
+    async function handleDeleteSession(e, sessionId) {
         e.stopPropagation()
         fetch(`${API_BASE}/sessions/${sessionId}`, {
             method: "DELETE",
@@ -138,18 +138,16 @@ export default function Dashboard()
                 
                 <div className="grid grid-cols-3 gap-5">
                     {sessions.map(session => (
-                        <div key={session.id}>
-                        <Card onClick={() => navigate(`/dashboard/session/${session.id}`)}>
+                        <Card key={session.id} onClick={() => navigate(`/dashboard/session/${session.id}`)}>
                             <h2 className="text-xl font-bold">{session.name}</h2>
                             <p className="text-md text-gray-600">{session.date}</p>
                             <p className="text-md text-gray-600">{session.exercises.length} exercises</p>
-                            <a key={session.id} className="cursor-pointer" onClick={() => handleDeleteSession(session.id)}>
-                                <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <button title="Delete session" className="cursor-pointer bg-transparent border-none p-0" onClick={(e) => handleDeleteSession(e, session.id)}>
+                                <svg className="w-8 h-8 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
                                 </svg>
-                            </a>
+                            </button>
                         </Card>
-                        </div>
                     ))}
                 </div>
             </div>
