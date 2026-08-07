@@ -23,9 +23,6 @@ export default function Header()
                     Pump Planner
                 </button>
                 <div className="flex items-center gap-4">
-                    <button type="button" onClick={() => navigate('/')} className="text-gray-700 hover:text-red-700 font-bold cursor-pointer transition">
-                        Home
-                    </button>
                     {loggedIn ? (
                         <button type="button" onClick={handleSignOut} className="bg-red-300 hover:bg-red-700 px-6 py-2.5 rounded-lg font-bold cursor-pointer transition">
                             Sign out
