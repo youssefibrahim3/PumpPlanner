@@ -13,16 +13,8 @@ export default function Header()
 
     useEffect(() => {
         const token = localStorage.getItem("token")
-        if (token) {
-            setLoggedIn(true)
-        } else {
-            setLoggedIn(false)
-            if (loggedIn) {
-                handleSignOut()
-            }
-        }
-
-    }, [loggedIn])
+        setLoggedIn(!!token)
+    }, [])
 
     return (
         <header className=" w-screen top-0 fixed" style={{background:"linear-gradient(to bottom, #d16d54, #9a280b, #d16d54)"}}>
