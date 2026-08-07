@@ -121,21 +121,26 @@ export default function Dashboard()
             <Header/>
 
             <div className="container mx-auto px-16 pt-24 pb-24">
+
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-white font-bold text-4xl">Your Sessions</h1>
-                    <input 
-                    className="justify- bg-white/10 border border-black/20 rounded-xl px-4 py-4 transition"
-                    type="text"
-                    onChange={(e) => setSessionName(e.target.value)} 
-                    value={sessionName}
-                    placeholder="Enter session name..."/>
-                    <button onClick={handleCreateSession} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
-                        + New Session
-                    </button>
+
+                    <div className="flex items-center gap-3">
+                        <input 
+                        className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-red-300 transition"
+                        type="text"
+                        onChange={(e) => setSessionName(e.target.value)} 
+                        value={sessionName}
+                        placeholder="Enter session name..."/>
+                        <button onClick={handleCreateSession} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
+                            + New Session
+                        </button>
+                    </div>
                 </div>
 
-                {fetching && <h1 className="text-white font-bold text-4xl">Fetching...</h1>}
-                
+                {fetching ? (
+                    <h1 className="text-white font-bold text-4xl">Loading...</h1>
+                ) : (
                 <div className="grid grid-cols-3 gap-5">
                     {sessions.map(session => (
                         <Card key={session.id} onClick={() => navigate(`/dashboard/session/${session.id}`)}>
@@ -150,8 +155,9 @@ export default function Dashboard()
                         </Card>
                     ))}
                 </div>
+                )}
+                
             </div>
-
             <Footer/>
         </div>
     );
