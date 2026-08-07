@@ -63,10 +63,14 @@ export default function Dashboard()
             }
             return data
         })
+        .then(data => {
+            if (!data) return
+            setSessions(prevSessions => [...prevSessions, data])
+            setSessionName("")
+        })
         .catch(error => {
             console.error(error)
         })
-        window.location.reload()
     }
 
 
@@ -93,6 +97,7 @@ export default function Dashboard()
                     className="justify- bg-white/10 border border-black/20 rounded-xl px-4 py-4 transition"
                     type="text"
                     onChange={(e) => setSessionName(e.target.value)} 
+                    value={sessionName}
                     placeholder="Enter session name..."/>
                     <button onClick={handleCreateSession} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
                         + New Session
