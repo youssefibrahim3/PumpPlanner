@@ -21,8 +21,13 @@ export default function Dashboard()
         })
         .then(async (response) => {
             const data = await response.json()
+            if (response.status === 401) {
+                localStorage.removeItem("token")
+                navigate('/login')
+                return
+            }
             if (!response.ok) {
-                throw new Error(data.detail || "Login failed")
+                throw new Error(data.detail || "Failed to load sessions")
             }
             return data
         })
