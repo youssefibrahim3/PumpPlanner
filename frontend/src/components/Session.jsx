@@ -14,6 +14,42 @@ export default function Session()
     const [exercises, setExercises] = useState([]) // all exercises in the session currently
     const [addForm, showAddForm] = useState(false)
     
+    const token = localStorage.getItem("token")
+
+    async function handleGetSession() {
+        fetch(`${API_BASE}/sessions/${id}`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+        })
+        .then(async (response) => {
+            const data = await response.json()
+            if (response.status === 401) {
+                localStorage.removeItem("token")
+                navigate('/login')
+                return
+            }
+            if (!response.ok) {
+                throw new Error(data.detail || "Failed to load sessions")
+            }
+            return data
+        })
+        .then(data => {
+            setSessions(data)
+            setFetching(false)
+        })
+        .catch(error => {
+            console.error(error)
+        })
+    }
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/login')
+        }
+    }, []);
+
     useEffect(() => {
         setSession({
             id: 1,
