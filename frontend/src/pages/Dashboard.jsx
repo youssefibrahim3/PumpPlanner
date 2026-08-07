@@ -3,17 +3,39 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Card from "../components/Card";
 import { useNavigate } from "react-router-dom";
+import { API_BASE } from "../api";
 
 export default function Dashboard()
 {
     const navigate = useNavigate();
     const [sessions, setSessions] = useState([]); //Array of session objects
 
+    const token = localStorage.getItem("token")
+
+    async function getSessions() {
+        fetch(`${API_BASE}/sessions`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+        })
+        .then(async (response) => {
+            const data = await response.json()
+            if (!response.ok) {
+                throw new Error(data.detail || "Login failed")
+            }
+            return data
+        })
+        .then(data => {
+            setSessions(data)
+        })
+        .catch(error => {
+            console.error(error)
+        })
+    }
+
     useEffect(() => {
-        setSessions([
-            { id: 1, name: "Push Day", date: "2026-07-28", exercises: [1, 2] },
-            { id: 2, name: "Leg Day", date: "2026-07-30", exercises: [1] },
-        ]);
+        getSessions()
     }, []);
 
     async function handleCreateSession() {
