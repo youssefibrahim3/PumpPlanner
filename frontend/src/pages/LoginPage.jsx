@@ -11,6 +11,11 @@ export default function LoginPage() {
 
     const [ loggingIn, setLoggingIn ] = useState(true)
 
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+            navigate('/dashboard')
+        }
+    }, [])
     return (
         <div 
         className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
