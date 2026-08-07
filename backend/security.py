@@ -37,4 +37,4 @@ def get_current_user(token : str = Depends(oauth2_scheme), db : DBSession = Depe
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
     
-    return None
+    return user
