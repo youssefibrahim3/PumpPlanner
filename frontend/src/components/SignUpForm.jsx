@@ -40,7 +40,7 @@ export default function SignUpForm() {
             return data
         })
         .then(data => {
-            navigate('/login')
+            window.location.reload()
         })
         .catch(error => {
             setError(error.message)
