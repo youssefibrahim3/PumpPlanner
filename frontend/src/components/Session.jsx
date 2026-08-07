@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ExerciseEntry from "../components/ExerciseEntry";
 import AddExerciseForm from "../components/AddExerciseForm";
+import { API_BASE } from "../api";
 
 export default function Session()
 {
@@ -31,17 +32,25 @@ export default function Session()
                 return
             }
             if (!response.ok) {
-                throw new Error(data.detail || "Failed to load sessions")
+                throw new Error(data.detail || `Failed to load session ${id}`)
             }
             return data
         })
         .then(data => {
-            setSessions(data)
-            setFetching(false)
+            setSession(data)
+            setExercises(data.exercises)
         })
         .catch(error => {
             console.error(error)
         })
+    }
+
+    async function handleAddExercise() {
+
+    }
+
+    async function handleDeleteExercise() {
+
     }
 
     useEffect(() => {
@@ -51,16 +60,9 @@ export default function Session()
     }, []);
 
     useEffect(() => {
-        setSession({
-            id: 1,
-            name: "Session1",
-            date: "2026-07-30"
-        })
-        setExercises([
-            //Exercise structure: id (num), name (string), unit(string), sets {reps, weight} (all num)
-            { id : 1, exerciseName: "Squat", unit: "lbs", sets: [{reps: 5, weight: 135},{reps: 5, weight: 135},{reps: 5, weight: 135}] }, 
-            { id : 2, exerciseName: "Bench", unit: "lbs", sets: [{reps: 12, weight: 225},{reps: 12, weight: 225},{reps: 12, weight: 225}] }
-        ])
+        if (token) {
+            handleGetSession()
+        }
     }, [id])
 
     function addExercise(data)
