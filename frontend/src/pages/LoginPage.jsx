@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function LoginPage() {
     const navigate = useNavigate()
@@ -13,7 +15,7 @@ export default function LoginPage() {
         <div 
         className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
         style={{background:"linear-gradient(to bottom, #d16d54, #9a280b, #d16d54)"}}>
-            
+            <Header/>
             
             { loggingIn ? (
                 <LoginForm/>
@@ -27,6 +29,8 @@ export default function LoginPage() {
             >
             {loggingIn ? 'Not a user? Sign Up' : 'Already a user? Log In'}
             </button>
+
+            <Footer/>
         </div>
 
     )
