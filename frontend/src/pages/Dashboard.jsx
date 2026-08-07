@@ -9,6 +9,7 @@ export default function Dashboard()
 {
     const navigate = useNavigate();
     const [sessions, setSessions] = useState([]); //Array of session objects
+    const [sessionName, setSessionName] = useState("")
 
     const token = localStorage.getItem("token")
 
@@ -39,13 +40,45 @@ export default function Dashboard()
         })
     }
 
+    async function handleCreateSession() {
+        fetch(`${API_BASE}/sessions`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({name : sessionName || "New Session", date : new Date().toDateString()})
+        })
+        .then(async (response) => {
+            const data = await response.json()
+            if (response.status === 401) {
+                localStorage.removeItem("token")
+                navigate('/login')
+                return
+            }
+            if (!response.ok) {
+                throw new Error("Failed to create session")
+            }
+            return data
+        })
+        .catch(error => {
+            console.error(error)
+        })
+        window.location.reload()
+    }
+
+
     useEffect(() => {
-        getSessions()
+        if (!token) {
+            navigate('/login')
+        }
     }, []);
 
-    async function handleCreateSession() {
-        navigate('/dashboard/session/new') // note to self: here the ID is 'new', ID is a string, use 'useparams()'
-    }
+    useEffect(() => {
+        if (token) {
+            getSessions()
+        }
+    }, []);
 
     return (
         <div className="min-h-screen" style={{background:"linear-gradient(to bottom, #d16d54, #9a280b, #d16d54)"}}>
@@ -54,7 +87,12 @@ export default function Dashboard()
             <div className="container mx-auto px-16 pt-24 pb-24">
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-white font-bold text-4xl">Your Sessions</h1>
-                    <button onClick={handleCreateSession} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold">
+                    <input 
+                    className="justify- bg-white/10 border border-black/20 rounded-xl px-4 py-4 transition"
+                    type="text"
+                    onChange={(e) => setSessionName(e.target.value)} 
+                    placeholder="Enter session name..."/>
+                    <button onClick={handleCreateSession} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
                         + New Session
                     </button>
                 </div>
