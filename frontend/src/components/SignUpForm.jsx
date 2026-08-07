@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE } from "../api";
 
 export default function SignUpForm() {
     const navigate = useNavigate()
@@ -10,19 +11,49 @@ export default function SignUpForm() {
 
     const minPassLength = 6
     
-    function handleSignup(e)
+    async function handleSignup(e)
     {
-        navigate('/login')
+        e.preventDefault();
+
+        // Checks
+        if (password.length < minPassLength) {
+            setError(`Password must be at least ${minPassLength} characters long`)
+            return
+        }
+        if (password !== confirmPassword) {
+            setError("Confirmed password must match password")
+            return
+        }
+
+        fetch(`${API_BASE}/auth/signup`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({username, password})
+        })
+        .then(async (response) => {
+            const data = await response.json()
+            if (!response.ok) {
+                throw new Error(data.detail || "Signup failed")
+            }
+            return data
+        })
+        .then(data => {
+            navigate('/login')
+        })
+        .catch(error => {
+            setError(error.message)
+            console.error(error)
+        })
     }
 
     return (
         <div className="w-full max-w-md rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl px-8 py-12">
-
-        <div className="justify-center text-center gap-3 items-center"></div>
         
             <h1 className="text-white text-4xl backdrop-blur-md px-8 py-10">Sign Up</h1>
 
-            <form id="signup_form" className="space-y-5 my-5">
+            <form id="signup_form" className="space-y-5 my-5" onSubmit={handleSignup}>
                 <div>
                     <label htmlFor="username" className="text-white">Username</label>
                     <input 
@@ -50,7 +81,7 @@ export default function SignUpForm() {
                 </div>
 
                 <div>
-                    <label htmlFor="password" className="text-white">Confirm Password</label>
+                    <label htmlFor="confirmpassword" className="text-white">Confirm Password</label>
                     <input 
                     type="password" 
                     id="confirmpassword" 
@@ -66,8 +97,7 @@ export default function SignUpForm() {
                 
                 <button 
                 className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"  
-                type="submit" 
-                onClick={handleSignup} 
+                type="submit"  
                 disabled={!(username.length > 0 && password.length >= minPassLength && password === confirmPassword)}>
                 Sign Up
                 </button>
