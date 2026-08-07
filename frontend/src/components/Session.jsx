@@ -132,7 +132,7 @@ export default function Session()
                     <ExerciseEntry key={exercise.id} exerciseData={exercise} onDelete={handleDeleteExercise} />
                 ))}
 
-                <button onClick={() => showAddForm(true)} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
+                <button onClick={() => showAddForm(true)} className="bg-red-300 hover:bg-red-700 px-6 py-3 mx-4 rounded-lg font-bold cursor-pointer">
                     + Add Exercise
                 </button>
                 {addForm && 

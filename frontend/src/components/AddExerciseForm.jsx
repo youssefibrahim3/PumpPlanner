@@ -33,19 +33,16 @@ export default function AddExerciseForm({onSubmit, onCancel})
     }
 
     return (
-        <form onSubmit={handleSubmit} className="px-4">
-            <input 
+        <form onSubmit={handleSubmit} className="px-4 py-4 bg-red-100 rounded-xl mx-4 my-3">
+            <input
+            className="bg-red-300 px-3 py-3 rounded-lg" 
             type="text" 
             placeholder="Exercise Name" 
             value={exerciseName} 
             onChange={(e) => setExerciseName(e.target.value)} required/>
 
-            <button type="button" onClick={addSet} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
-                + Add Set
-            </button>
-
             <div className="flex-col gap-2">
-                <select value={unit} onChange={(e) => setUnit(e.target.value)} required className="bg-red-300">
+                <select value={unit} onChange={(e) => setUnit(e.target.value)} required className="bg-red-300 my-3 px-4 py-2 rounded-lg">
                     <option value="lbs">lbs</option>
                     <option value="kg">kg</option>
                 </select>
@@ -53,9 +50,10 @@ export default function AddExerciseForm({onSubmit, onCancel})
                 {sets.map((set, i) => (
                     <div className="rounded-lg bg-red-300 my-3 py-3" key={i}>
                         
-                        <h1>Set {i + 1}</h1>
+                        <h1 className="px-3 py-3 font-bold">Set {i + 1}</h1>
                         <input 
                         type="number" 
+                        className="mx-3 px-3 bg-red-200 rounded-lg"
                         placeholder="Reps" 
                         value={set.reps} 
                         required 
@@ -63,6 +61,7 @@ export default function AddExerciseForm({onSubmit, onCancel})
 
                         <input 
                         type="number" 
+                        className="mx-3 px-3 bg-red-200 rounded-lg"
                         placeholder="Weight" 
                         value={set.weight} 
                         required 
@@ -71,9 +70,14 @@ export default function AddExerciseForm({onSubmit, onCancel})
                     </div>
                 ))}
 
-                <button type="submit" className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
-                    Add
+                <button type="button" onClick={addSet} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
+                    Add Set
                 </button>
+                
+                <button type="submit" className="bg-red-300 hover:bg-red-700 px-6 mx-3 py-3 rounded-lg font-bold cursor-pointer">
+                    + Create
+                </button>
+
             </div>
         </form>
     )
