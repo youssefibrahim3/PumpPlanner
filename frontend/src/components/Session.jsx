@@ -84,13 +84,30 @@ export default function Session()
         fetch(`${API_BASE}/sessions/${id}/exercises/${exerciseId}`, {
             method: "DELETE",
             headers: {
+                "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
             },
         })
         .then(async (response) => {
-            
+            if (response.status === 401) {
+                localStorage.removeItem("token")
+                navigate('/login')
+                return
+            }
+            if (response.status === 404) {
+                const data = response.json()
+                throw new Error(data.detail || "Exercise not found")
+            }
+            if (!response.ok) {
+                throw new Error("Failed to delete exercise")
+            }
         })
-
+        .then(() => {
+            setExercises(exercises.filter(exercise => exercise.id !== exerciseId))
+        })
+        .catch(error => {
+            console.error(error)
+        })
     }
 
     useEffect(() => {
