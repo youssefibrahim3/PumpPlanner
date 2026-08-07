@@ -73,6 +73,35 @@ export default function Dashboard()
         })
     }
 
+    async function handleDeleteSession(sessionId) {
+        fetch(`${API_BASE}/sessions/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+        })
+        .then(async (response) => {
+            if (response.status === 401) {
+                localStorage.removeItem("token")
+                navigate('/login')
+                return
+            }
+            if (response.status === 404) {
+                const data = response.json()
+                throw new Error(data.detail || `Session ${sessionId} not found`)
+            }
+            if (!response.ok) {
+                throw new Error("Failed to delete session")
+            }
+        })
+        .then(() => {
+            setSessions(sessions.filter(session => session.id !== sessionId))
+        })
+        .catch(error => {
+            console.error(error)
+        })
+    }
 
     useEffect(() => {
         if (!token) {
@@ -112,6 +141,11 @@ export default function Dashboard()
                             <h2 className="text-xl font-bold">{session.name}</h2>
                             <p className="text-md text-gray-600">{session.date}</p>
                             <p className="text-md text-gray-600">{session.exercises.length} exercises</p>
+                            <a onClick={() => handleDeleteSession(session.id)}>
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                </svg>
+                            </a>
                         </Card>
                     ))}
                 </div>
