@@ -35,7 +35,6 @@ export default function LoginPage() {
             {loggingIn ? 'Not a user? Sign Up' : 'Already a user? Log In'}
             </button>
 
-            <Footer/>
         </div>
 
     )
