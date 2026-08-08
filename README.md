@@ -1,4 +1,4 @@
-# Pump Planner 🏋️
+# Pump Planner
 
 A full-stack gym workout tracker built to practice designing and shipping a complete application end to end — from data modeling and a REST API through to a deployed, authenticated frontend.
 
