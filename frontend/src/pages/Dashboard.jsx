@@ -136,12 +136,15 @@ export default function Dashboard()
                     <h1 className="text-white font-bold text-4xl">Your Sessions</h1>
 
                     <div className="flex items-center gap-3">
+
+                        {makingSession && (
                         <input 
                         className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-red-300 transition"
                         type="text"
                         onChange={(e) => setSessionName(e.target.value)} 
                         value={sessionName}
                         placeholder="Enter session name..."/>
+                        )}
 
                         {makingSession ? (
                         <button onClick={handleCreateSession} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
