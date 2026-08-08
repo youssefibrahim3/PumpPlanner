@@ -151,8 +151,7 @@ export default function Dashboard()
                         <button onClick={() => setMakingSession(true)} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
                             + New Session
                         </button>
-                        )
-                        }
+                        )}
 
                     </div>
                 </div>
