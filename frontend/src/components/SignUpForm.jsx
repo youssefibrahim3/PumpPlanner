@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE } from "../api";
 
-export default function SignUpForm() {
+export default function SignUpForm( {onLogin} ) {
     const navigate = useNavigate()
     const [ username, setUsername ] = useState("")
     const [ password, setPassword ] = useState("")
@@ -37,10 +37,7 @@ export default function SignUpForm() {
             if (!response.ok) {
                 throw new Error(data.detail || "Signup failed")
             }
-            return data
-        })
-        .then(data => {
-            navigate('/login')
+            onLogin()
         })
         .catch(error => {
             setError(error.message)

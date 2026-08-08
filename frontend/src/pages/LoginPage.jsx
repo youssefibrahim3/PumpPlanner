@@ -25,7 +25,7 @@ export default function LoginPage() {
             { loggingIn ? (
                 <LoginForm/>
             ) : (
-                <SignUpForm/>
+                <SignUpForm onLogin={() => setLoggingIn(true)}/>
             )}
 
             <button
