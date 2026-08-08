@@ -11,7 +11,7 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 origins = [
-    "https://pump-planner.vercel.app",
+    "https://pump-planner-frontend.vercel.app/",
 ]
 
 app.add_middleware(
