@@ -11,6 +11,7 @@ export default function Dashboard()
     const [sessions, setSessions] = useState([]); //Array of session objects
     const [sessionName, setSessionName] = useState("")
     const [fetching, setFetching] = useState(true)
+    const [makingSession, setMakingSession] = useState(false)
 
     const token = localStorage.getItem("token")
 
@@ -43,6 +44,7 @@ export default function Dashboard()
     }
 
     async function handleCreateSession() {
+        setMakingSession(false)
         setFetching(true)
         fetch(`${API_BASE}/sessions`, {
             method: "POST",
@@ -140,9 +142,18 @@ export default function Dashboard()
                         onChange={(e) => setSessionName(e.target.value)} 
                         value={sessionName}
                         placeholder="Enter session name..."/>
+
+                        {makingSession ? (
                         <button onClick={handleCreateSession} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
+                            Create Session
+                        </button>
+                        ) : (
+                        <button onClick={() => setMakingSession(true)} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
                             + New Session
                         </button>
+                        )
+                        }
+
                     </div>
                 </div>
 
