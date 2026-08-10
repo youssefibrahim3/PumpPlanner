@@ -6,7 +6,7 @@ export default function AddExerciseForm({onSubmit, onCancel})
     const [sets, setSets] = useState([{reps: "", weight: ""}])
     const [unit, setUnit] = useState("lbs")
 
-    function addSet() 
+    function addSet(reps = "", weight = "") 
     {
         setSets(
             [
@@ -67,6 +67,9 @@ export default function AddExerciseForm({onSubmit, onCancel})
                         required 
                         onChange={(e) => updateSet(i, "weight", e.target.value)}/>
 
+                        <button type="button" onClick={() => addSet(set.reps, set.weight)} className="bg-red-300 hover:bg-red-700 px-6 py-3 rounded-lg font-bold cursor-pointer">
+                            Duplicate
+                        </button>
                     </div>
                 ))}
 
