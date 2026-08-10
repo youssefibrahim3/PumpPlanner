@@ -11,7 +11,7 @@ export default function AddExerciseForm({onSubmit, onCancel})
         setSets(
             [
                 ...sets,
-                {reps: "", weight: ""}
+                {reps: reps, weight: weight}
             ]
         )
     }
